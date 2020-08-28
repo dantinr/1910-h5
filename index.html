@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/iconfont.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/csst9402.css"/>
+		<script src="/js/env.js"></script>
 		<script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body class="body">
@@ -130,7 +131,7 @@
 		<script>
 			//获取首页商品列表
 			$.ajax({
-				url: 'http://api.1910.com/home/goods',		//首页接口
+				url: api_url + '/home/goods',		//首页接口
 				type: 'get',
 				dataType: 'json',
 				xhrFields: { withCredentials:true},
