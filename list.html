@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>列表页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="css/csst9402.css"/>
+	</head>
+	<body class="body">
+		<div class="header-sy fahi">
+			<h4><a href="index.html"><i class="iconfont">&#xe697;</i></a><i class="iconfont">&#xe6c8;</i><input type="text" name="" id="" value="" placeholder="搜素商品" /></h4>
+			<a href="#" class="sousuo">搜索</a>
+		</div>
+		<div class="hwyd-content"  id="goods_list">
+			<ul>
+
+					<li v-for="goods in list">
+						<div class="hwyd-wai">
+							<a :href="'detail.html?id=' + goods.goods_id"><img src="img/sytu8.png"/></a>
+							<div class="hwxinxi">
+								<p><a :href="'detail.html?id=' + goods.goods_id">{{goods.goods_name}}</a></p>
+								<span>￥{{goods.goods_price}}</span>
+							</div>
+						</div>
+					</li>
+
+			</ul>
+		</div>
+		<div style="height: 5em;"></div>
+
+		<script src="/js/vue.js"></script>
+		<script src="/js/axios.min.js"></script>
+		<script>
+			new Vue({
+				el: "#goods_list",
+				data () {
+					return {
+						list: null
+					}
+				},
+				mounted () {
+					axios
+							.get('http://api2.1910.com/goods/test')
+							.then(response => (this.list = response.data))
+				}
+			})
+		</script>
+	</body>
+</html>
