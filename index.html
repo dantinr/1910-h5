@@ -11,6 +11,7 @@
 		<script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body class="body">
+	<div id="app">
 		<div class="header-sy">
 			<h4><i class="iconfont">&#xe6c8;</i><input type="text" name="" id="" value="" placeholder="搜素商品" /></h4>
 		</div>
@@ -18,25 +19,16 @@
 			<div class="banner-border">
 				<div class="swiper-container swiper-container-horizontal">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<img src="/img/banner.png">
-						</div>
-					
-						<div class="swiper-slide">
-							<img src="/img/banner.png">
-						</div>
-					
-						<div class="swiper-slide">
-							<img src="/img/banner.png">
-						</div>
-						
-						<div class="swiper-slide">
-							<img src="/img/banner.png">
-						</div>
+						<slider-block
+								v-for="item in sliderImg"
+								v-bind:img="item"
+								v-bind:key="item.id"
+						></slider-block>
 						<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
 					</div>
 				</div>
 			</div>
+
 			<div class="gonggao">
 				<span><img src="img/sytu9.png"/></span>
 				<marquee><span>恭喜会员182*****546，抢购商品成功</span></marquee>
@@ -86,15 +78,6 @@
 						</div>
 					</div>
 				</li>
-				<!--li>
-					<div class="spwai">
-						<a href=""><img src="img/sytu8.png"/></a>
-						<div class="spxinxi">
-							<p><a href="">S-易路达超轻折叠双肩包</a></p>
-							<span>0金币+￥125</span>
-						</div>
-					</div>
-				</li-->
 			</ul>
 		</div>
 		<div style="height: 5em;"></div>
@@ -126,7 +109,7 @@
 				</a>
 			</ul>
 		</div>
-
+	</div>
 		<!--轮播图-->
 		<script type="text/javascript">
 			var mySwiper = new Swiper('.swiper-container', {
@@ -139,12 +122,23 @@
 		<script src="/js/vue.js"></script>
 		<script src="/js/axios.min.js"></script>
 		<script>
-			new Vue({
-				el: "#goods_list",
-				data () {
-					return {
-						list: null
-					}
+
+			//轮播图组件
+			Vue.component('slider-block',{
+				props: ['img'],
+				template:"<div class='swiper-slide'><img v-bind:src=img.src></div>"
+			})
+
+			var app = new Vue({
+				el: "#app",
+				data: {
+					list: null,		//商品列表
+					sliderImg:[		//轮播图可通过接口获取
+						{src: '/img/banner1.png', link: 'http://www.baidu.com'},
+						{src: '/img/banner2.png', link: 'http://www.baidu.com'},
+						{src: '/img/banner3.png', link: 'http://www.baidu.com'},
+						{src: '/img/banner4.png', link: 'http://www.baidu.com'},
+					],
 				},
 				mounted () {
 					axios
