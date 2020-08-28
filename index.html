@@ -126,24 +126,20 @@
 			//轮播图组件
 			Vue.component('slider-block',{
 				props: ['img'],
-				template:"<div class='swiper-slide'><img v-bind:src=img.src></div>"
+				template:"<div class='swiper-slide'><a v-bind:href=img.href><img v-bind:src=img.src></a></div>"
 			})
 
 			var app = new Vue({
 				el: "#app",
 				data: {
-					list: null,		//商品列表
-					sliderImg:[		//轮播图可通过接口获取
-						{src: '/img/banner1.png', link: 'http://www.baidu.com'},
-						{src: '/img/banner2.png', link: 'http://www.baidu.com'},
-						{src: '/img/banner3.png', link: 'http://www.baidu.com'},
-						{src: '/img/banner4.png', link: 'http://www.baidu.com'},
-					],
+					list: null,				//商品列表
+					sliderImg: null,		//轮播图可通过接口获取
 				},
 				mounted () {
-					axios
-							.get(api_url + '/goods/home')
-							.then(response => (this.list = response.data.data.list))
+					axios.get(api_url + '/goods/home').then(response => (
+							this.list = response.data.data.list,
+							this.sliderImg = response.data.data.slider
+					))
 				}
 			})
 		</script>
