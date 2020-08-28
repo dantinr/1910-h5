@@ -77,6 +77,15 @@
 		</div>
 		<div class="header-sy-nr3">
 			<ul id="goods_list">
+				<li v-for="goods in list">
+					<div class="spwai">
+						<a :href="'/detail.html?id='+goods.goods_id"><img src="img/sytu8.png"/></a>
+						<div class="spxinxi">
+							<p><a href="">{{goods.goods_name}}</a></p>
+							<span>￥ {{goods.goods_price}}</span>
+						</div>
+					</div>
+				</li>
 				<!--li>
 					<div class="spwai">
 						<a href=""><img src="img/sytu8.png"/></a>
@@ -127,34 +136,22 @@
 			})
 		</script>
 
-		<script src="/js/jquery-3.5.1.min.js"></script>
+		<script src="/js/vue.js"></script>
+		<script src="/js/axios.min.js"></script>
 		<script>
-			//获取首页商品列表
-			$.ajax({
-				url: api_url + '/home/goods',		//首页接口
-				type: 'get',
-				dataType: 'json',
-				xhrFields: { withCredentials:true},
-				success: function(d)
-				{
-					//填充页面数据
-					console.log(d);
-					$.each(d.data.goods,function(i,item){
-						console.log(i + '--' + item.goods_name);
-						var node = '<li>' +
-								'<div class="spwai">' +
-								'<a href="/detail.html?id='+ item.goods_id +'"><img src="img/sytu8.png"/></a>' +
-								'<div class="spxinxi">' +
-								'<p><a href="">'+ item.goods_name +'</a></p>' +
-								'<span>￥'+item.shop_price+'</span>' +
-								'</div>' +
-								'</div>' +
-								'</li>';
-						$("#goods_list").append(node);
-					});
-
+			new Vue({
+				el: "#goods_list",
+				data () {
+					return {
+						list: null
+					}
+				},
+				mounted () {
+					axios
+							.get('http://api2.1910.com/goods/test')
+							.then(response => (this.list = response.data))
 				}
-			});
+			})
 		</script>
 
 	</body>
