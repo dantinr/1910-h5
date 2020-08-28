@@ -148,7 +148,7 @@
 				},
 				mounted () {
 					axios
-							.get('http://api2.1910.com/goods/test')
+							.get(api_url + '/goods/home')
 							.then(response => (this.list = response.data))
 				}
 			})
